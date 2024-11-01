@@ -1,0 +1,88 @@
+,SeAsOn,EPISODE,r.estaurant.name,cIty,STAte,o.riginala.ir.date,s.tatus,ORIginalfilmMONTH,Closing Year,Cuisine,Revisited,Two Parts
+1,oNE, one,Peter's...,Babylon,NY,2007-09-19, closed,Mar 2007,2008,Italian,No,No
+2,1,2,Dillon's...,NYC,NY,2007-09-26,Closed,Mar 2007,2008,Indian, No,N
+3,1,3,The Mixing Bowl...,Bellmore,NY,october 3 2007,Closed,Mar 2007,2009,american,No,No
+4, uno,4,Seascape...,Islip,NY,2007-10-10,Closed,Mar 2007,2007,Seafood,No.,No
+5,1,five,The Olde Stone Mill...,Tuckahoe,NY,2007-10-17,closed,Mar 2007,2022,American,Yes,No
+6,1,6,Sebastian's...,Toluca Lake,CA,2007-11-07,Closed,Feb 2007,2008,Pizzeria,No,No
+7,1,7,Finn McCool's...,Westhampton,NY,2007-11-14,Closed,Mar 2007,2012,Irish,Yes,No
+8,1,8,Lela's...,Pomona,CA,2007-11-21,c,Feb 2007,2007,Fine Dining,No,No
+9,1,9,Campania...,Fair Lawn,new jersey,2007-11-28,Closed,Mar 2007,2010,Italian,No,No
+10,1,TEN!,The Secret Garden...,Moorpark,CA,2007-12-12,Closed,Feb 2007,2010,French,No,No
+11,2,2,Handlebar...,Mount Sinai,NY,2008-09-11,Closed,Feb 2008,2009,American,Yessss,No
+12,2,3,Giuseppi's...,Macomb Township,MI,2008-09-18, Closed,Feb 2008,2009,Italian,Yes,No
+13,2,4,Trobiano's...,Great Neck,NEW YORK,09-25-2008,Closed,Feb 2008,2008,Italian,No,No
+14,2,5,Black Pearl...,New York City,NY,2008-09-25,Closed,Feb 2008,2008,Seafood,Yes,No
+15,2,6,J Willy's...,South Bend,IN,2008-10-30, not open ,Feb 2008,2009,American,No,No
+16,2,7,Hannah & Mason's...,Cranbury,NJ,2008-11-06,Closed,Feb 2008,2010,American,No?,No
+17,22222222,8,Jack's Waterfront...,St. Clair Shores,MI,2008-11-06,Closed,Mar 2008,2010,Seafood,No,No
+18,2,9,Sabatiello's...,Stamford,CT,2008-11-13,Closed,Feb 2008,2008,Italian,No,No
+19,2,10,Fiesta Sunrise...,West Nyack,NY,2008-11-13,closed,Feb 2008,2008,Mexican,No,No
+20,2, eeleven,Sante La Brea...,Los Angeles,cali,2008-11-20,Closed,Mar 2008,2011,Healthy,Yes,No
+21,2,12,Cafe 36...,La Grange,IL,2009-01-15,Closed,Feb 2008,2009,American,No,No
+22,3,1,Hot Potato Cafe...,Fishtown,PA,2010-01-29,Closed,May 2009,2010,American,No...,No
+23,3,2,FlAmAnGo'S,Whitehouse Station,NJ,2010-02-02,Closed,Jul 2009,2011,Hawaiian,Yes,No
+24,3,3,Bazzini,Ridgewood,NJ,2010-02-05,Closed,Jul 2009,2010,Italy,Yes,No
+25,3,4,Mojito,Brooklyn,NY,2010-02-25,Closed,May 2009,2016,Cuban,Yes,No
+26,3,5,Lido di Manhattan,Manhattan Beach,CA,2010-03-04,Open,Jul 2009,didn't close,Italian,Yes,No
+27,3,6,Le Bistro,Lighthouse Point,FL,2010-03-11,open,Jul 2009,still open,Fine Dining,Yes,No
+28,3,7,Casa Roma,Lancaster,CA,12th of march 2010,Closed,Mar 2008,2017,Italian,Yes,No
+29,3,8,Mama Rita's,Newbury Park,CA,2010-03-19, Closed,May 2009,2010,Mexican,No,No
+30,3,9,Anna Vincenzo's,Boca Raton,FL,2010-03-26,Closed,Jul 2009,2010,Italian,Yes,No
+31,3,11,FlEmINg,Miami,FL,2010-05-07,Closed,Jul 2009,2010,Danish,No,No
+32,3,12,Sushi-Ko?,Thousand Oaks,CA,2010-05-14,Closed,May 2009,2009,Japanese,No,No
+33,4,1,Spanish Pavilion,Harrison...,NJ,2011-01-21,Open,Nov 2010,still open,Spanish,Yes,No
+34,4,2,Classic American,Babylon,NY,2011-01-28,Closed,Nov 2010,2013,American,Yes,No
+35,4,tree,PJ's Steakhouse,Queens,NY,2011-02-11, closed,May 2010,2010,American,No,No
+36,4,5,Grasshopper Also,Carlstadt,NJ,2011-02-18,Closed,Nov 2010,2012,Irish,No,No
+37,4,6,Davide,Boston,MA,2011-02-25,Closed,Dec 2010,2014,Italian,Yes,No
+38,4,7,Down City,Providence,RI,2011-03-11,closed.,Dec 2010,2011,American,Yes,No
+39,4,9,Tavolini,Bridgeport,CT,2011-03-25,Closed,Dec 2010,2010,Italian,No,No
+40,4,10,Kingston Cafe,Pasadena,CA,2011-04-15,Closed,Jan 2011,2018,Jamaican, yes ,No
+41,4,11,La Frite,Sherman Oaks,CA,2011-04-29,Closed,Jan 2011,2016,French,Yes,No
+42,4,12,Capri,Eagle Rock,CA,2011-05-06,Closed,Jan 2011,2019,Italian,Yes,No
+43,4,13,Zeke's,Metairie,LA,2011-05-13,Closed,Jan 2011,2012,Seafood,No,No
+44,4,14,Oceana,New Orleans,"New Orleans, LA",2011-05-20,Open,Jan 2011,N/A,New Orleans,No,No
+45,5,1,Blackberry's,Plainfield,NJ,2011-09-23,Closed,Jul 2011,2013,Soul Food,No,No
+46,5,2,Leone's,Montclair,NJ,2011-09-30,Open.,Jul 2011,N/A,Italian,Yes,No
+47,5,3,Mike & Nellie's,Oakhurst,NJ,2011-10-07,Closed,Jul 2011,2012,Steakhouse,No,No
+48,5,4,Luigi's D'Italia,Anaheim,CA,2011-10-14,Open,Jul 2011,#N/A,Italian,No,No
+49,5,6,Burger Kitchen01,LA,CA,2011-09-04,Closed,Aug 2011,2012,American,No,Y
+50,fifth,8,The Greek at the Harbor,Ventura,CA,2011-11-18,Open,Aug 2011,,Greek,No,No
+51,5,9,Michon's,College Park,GA,2012-01-13,Closed,Jan 2012,2013,Barbecue,No,No
+52,5,10,El Greco,Austin,TX,2012-01-20,Closed,Aug 2011,2011,Greek,No,No
+53,5,12,Park's Edge,Atlanta,GA,2012-02-03,Closed,Sep 2011,2014,American,No,No
+54,5,13,Spin-A-Yarn Steakhouse,Fremont,CA,2012-02-10,Open,Oct 2011,NA,Steak,Nooooo,No
+55,5,14,Charlie's,La Verne,CA,2012-02-17,Closed,Oct 2011,2012,Italian,No,No
+56,5,15,Cafe Hon,Baltimore,MD,2012-02-24,Closed,Nov 2011,2022,American,Yes,No
+57,5,16,Chiarella's,Philadelphia,PA,2012-03-23,Closed,Nov 2011,2015,Italian,Yes,No
+58,5,17,Zocalo,Philadelphia,PA,2012-03-30,Closed,Nov 2011,2013,Mexican,No,No
+59,6,1,La Galleria 33...,Boston,MA,2012-10-26,Closed,May 2012,2018,Italian,Yes,Yes
+60,6,3,Mama Maria's,Brooklyn,NY,2012-11-09,Open,Jun 2012,2023,Italian,No,No
+61,6,4,Ms. Jean's Southern Cuisine,Wilkinsburg,PA,2012-11-16,Closed,Jun 2012,2022,Soul Food,No,No
+62,6,5,BaREfoOt BoB's,Hull,MA,2012-12-07,Closed,May 2012,2016,American,No, No
+63,6,7,Olde Hitching Post Restaurant and Tavern,Hanson,MA,2013-01-25,Open,Jun 2012,N/A,American,Yes,No
+64,6,8,Levanti's Italian Restaurant,Beaver,PA,2013-02-01,Closed,Jun 2012,2013,Italian,No,No
+65,6,9,Sam's Mediterranean Kabob Room,Monrovia,CA,2013-02-15,Closed,Jul 2012,2014,Mediterranean,No,No
+66,6,10,Nino's Italian Restaurant,Long Beach,CA,2013-02-22,Closed,Jul 2012,2016,Italian,No,Yes 
+67,six,11,Mill Street Bistro,Norwalk,OH,2013-03-01,Closed,Jul 2012,2016,American,No,No
+68,6,13,Yanni's,Seattle,WA,2013-03-15,Open,Nov 2012,N/A,Greek,No,No
+69,6,14,Prohibition Grille,Everett,WA,2013-04-26,Closed,Nov 2012,2017,American,Yes, No.
+70,6,15,Chappy's,Nashville,TN,2013-05-03,Closed,Dec 2012,2013,Cajun,Yes,No
+71,6,16,Amy's Baking Company,Scottsdale,AZ,2013-05-10,Closed,Dec 2012,2015,Pizza/Bakery,No,No
+72,7,2,Pantaleone's:,Denver,CO,2014-04-11,Open,Jul 2013,not applicable,Pizza,No,No
+73,7,3,Old Neighborhood,Arvada,CO,2014-04-18,Closed,Jul 2013,2016,American,No,No
+74,7,4,Kati Allo,Queens,NY,2014-04-18,Closed,Jul 2013,2014,Greek,No,No
+75,7,5,Mangia Mangia--,Woodland Park,CO,2014-04-25,Closed,Aug 2013,2014,Italian,No,Yes
+76,7,7,Zayna Flaming Grill,Redondo Beach,CA,may 2 2014,Closed,Aug 2013,2023,Middle Eastern,No,Yes
+77,7,9,Bella Luna,Easton,PA,2014-05-16,Closed,Jul 2013,2013,Italian,No,No
+78,8,1,Bel Aire,Astoria,NY,2023-09-25,Open,Apr 2023,N/A,American,No,No
+79,8,2,Bask 46,Woodland Park,NJ,2023-10-02,Open,Jun 2023,N/A,American,No,No
+80,8,3,In the Drink,Wayne,NJ,2023-10-09,Open,Jul 2023,N/A,American,No,No
+81,8,4,Da Mimmo,Dumont,NJ,2023-10-16,Open,Jun 2023,N/A,Italian,No,No
+82,8,5,The Juicy Box,Brooklyn,NY,2023-11-06,Open,Jun 2023,N/A,American,No,No
+83,8,6,Love Bites,Saugerties,NY,2023-11-13,Closed,Jun 2023,2023,breakfast,No,No
+84,8,sEven,El Cantito,Yonkers,NY,2023-11-20,Open,Jun 2023,N/A,Puerto Rican,No,No
+85,8,8,South Brooklyn Foundry,Brooklyn,NY,2023-11-27,Closed,Jun 2023,2024,American,No,No
+86,8,9,Max's Bar & Grill,Long Branch,jersey,2023-12-04,Open,Jun 2023,N/A,American,No,No
+87,8,10,Diwan,Port Washington,NY,2023-12-4,Open,Jun 2023,N/A,Indian,No,No
