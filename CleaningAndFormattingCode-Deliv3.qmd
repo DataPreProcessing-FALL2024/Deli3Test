@@ -1,0 +1,932 @@
+---
+title: "index"
+author: "Nikita Johnson"
+format: html
+editor: visual
+---
+
+## Kitchen Nightmares Data
+
+### Data Cleaning
+
+1.  Read in [Kitchen Nightmares data link](https://github.com/DataPreProcessing-FALL2024/Deli3Test/raw/refs/heads/main/Data/messy_kitchen_nightmares.csv) from Github repository.
+
+```{r}
+library(dplyr) 
+library(tidyverse)  
+kn_link="https://github.com/DataPreProcessing-FALL2024/Deli3Test/raw/refs/heads/main/Data/messy_kitchen_nightmares.csv"
+```
+
+2.  Read in CSV file from link.
+
+```{r}
+kn_data = read.csv(kn_link) 
+head(kn_data)
+```
+
+3.  Clean column names and drop the first column because it is unnecessary.
+
+```{r}
+colnames(kn_data)  
+
+kn_data <- kn_data[, -1]  
+
+colnames(kn_data) <- c('season', 'episode', 'restaurant', 'city', 'state', 'air_date', 'status', 'film_month', 'closing_year', 'cuisine',   'revisited', 'two_parts')  
+
+head(kn_data)
+```
+
+4.  Next, we will make a frequency table for the 'season' column.
+
+```{r}
+season_freq_table <- kn_data %>%   
+  group_by(season) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+season_freq_table
+```
+
+5.  There are some odd values, so we should fix them manually. Then, re-call frequency table to check work.
+
+```{r}
+kn_data$season[kn_data$season == " uno"] <- "1"
+kn_data$season[kn_data$season == "22222222"] <- "2"
+kn_data$season[kn_data$season == "fifth"] <- "5"
+kn_data$season[kn_data$season == "oNE"] <- "1"
+kn_data$season[kn_data$season == "six"] <- "6"
+
+season_freq_table <- kn_data %>%   
+  group_by(season) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+season_freq_table
+```
+
+6.  Then, we'll move on to the 'episode' column and create a frequency table.
+
+```{r}
+ep_freq_table <- kn_data %>%   
+  group_by(episode) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+ep_freq_table
+```
+
+7.  There are some odd values, so we should fix them manually. Then, re-call frequency table to check work.
+
+```{r}
+kn_data$episode[kn_data$episode == " eeleven"] <- "11"
+kn_data$episode[kn_data$episode == " one"] <- "1"
+kn_data$episode[kn_data$episode == "TEN!"] <- "10"
+kn_data$episode[kn_data$episode == "five"] <- "5"
+kn_data$episode[kn_data$episode == "sEven"] <- "7"
+kn_data$episode[kn_data$episode == "tree"] <- "3"
+
+ep_freq_table <- kn_data %>%   
+  group_by(episode) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+ep_freq_table
+```
+
+8.  Next, we will make a frequency table for the 'restaurant' column.
+
+```{r}
+restaurant_freq_table <- kn_data %>%   
+  group_by(restaurant) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+restaurant_freq_table
+```
+
+9.  There are some odd values, so we will need to change them manually. There are also some strings that are reoccurring at the end of some of the restaurant names such as "..." that need to be removed. Then, re-call frequency table to check work.
+
+```{r}
+#remove '...' string from end of all cells in column
+kn_data$restaurant <- str_replace_all(kn_data$restaurant, fixed("..."), "")
+
+#manually change values
+kn_data$restaurant[kn_data$restaurant == "BaREfoOt BoB's"] <- "Barefoot Bob's"
+kn_data$restaurant[kn_data$restaurant == "Burger Kitchen01"] <- "Burger Kitchen"
+kn_data$restaurant[kn_data$restaurant == "FlAmAnGo'S"] <- "Flamango's"
+kn_data$restaurant[kn_data$restaurant == "FlEmINg"] <- "Fleming"
+kn_data$restaurant[kn_data$restaurant == "Mangia Mangia--"] <- "Mangia Mangia"
+kn_data$restaurant[kn_data$restaurant == "Pantaleone's:"] <- "Pantaleone's"
+kn_data$restaurant[kn_data$restaurant == "Sushi-Ko?"] <- "Sushi-Ko"
+
+restaurant_freq_table <- kn_data %>%   
+  group_by(restaurant) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+restaurant_freq_table
+```
+
+10. Next, let's look at the 'city' frequency table.
+
+```{r}
+city_freq_table <- kn_data %>%   
+  group_by(city) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+city_freq_table
+```
+
+11. There are a couple values that need to be manually changed since they were put in as abbreviations. There is also one value with the string '...' at the end that needs to be fixed. Then, we'll re-call the frequency table to check our work.
+
+```{r}
+#manually change values
+kn_data$city[kn_data$city == "LA"] <- "Los Angeles"
+kn_data$city[kn_data$city == "NYC"] <- "New York City"
+kn_data$city[kn_data$city == "Harrison..."] <- "Harrison"
+
+city_freq_table <- kn_data %>%   
+  group_by(city) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+city_freq_table
+```
+
+12. Next, let's look at the 'state' column and create a frequency table.
+
+```{r}
+state_freq_table <- kn_data %>%   
+  group_by(state) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+state_freq_table
+```
+
+13. There are some values that need to be manually fixed since they were not inputted in the correct format. After, we will re-call our 'state' frequency table to check our work.
+
+```{r}
+#manually change values
+kn_data$state[kn_data$state == "NEW YORK"] <- "NY"
+kn_data$state[kn_data$state == "New Orleans, LA"] <- "LA"
+kn_data$state[kn_data$state == "cali"] <- "CA"
+kn_data$state[kn_data$state == "jersey"] <- "NJ"
+kn_data$state[kn_data$state == "new jersey"] <- "NJ"
+
+state_freq_table <- kn_data %>%   
+  group_by(state) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+state_freq_table
+```
+
+14. Next, let's look at the 'air_date' column and create a frequency table.
+
+```{r}
+airdate_freq_table <- kn_data %>%   
+  group_by(air_date) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+airdate_freq_table
+```
+
+15. We want to make sure everything is in the correct date format so it can later be read in by R as a datetime object. Let's manually change the incorrect values to the format of Y-M-D. Then, we'll re-call the 'air_date' frequency table to check our work.
+
+```{r}
+#manually change values
+kn_data$air_date[kn_data$air_date == "09-25-2008"] <- "2008-09-25"
+kn_data$air_date[kn_data$air_date == "12th of march 2010"] <- "2010-03-12"
+kn_data$air_date[kn_data$air_date == "2023-12-4"] <- "2023-12-04"
+kn_data$air_date[kn_data$air_date == "may 2 2014"] <- "2014-05-02"
+kn_data$air_date[kn_data$air_date == "october 3 2007"] <- "2007-10-03"
+
+airdate_freq_table <- kn_data %>%   
+  group_by(air_date) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+airdate_freq_table
+```
+
+16. Next, we'll make a 'status' frequency table.
+
+```{r}
+status_freq_table <- kn_data %>%   
+  group_by(status) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+status_freq_table
+```
+
+17. We should get rid of leading spaces and also change values manually to create only two possible values- 'closed' and 'open'.
+
+```{r}
+#remove leading spaces
+kn_data$status <- str_trim(kn_data$status, "left")
+
+#manually change values
+kn_data$status[kn_data$status == "closed"] <- "Closed"
+kn_data$status[kn_data$status == "Open."] <- "Open"
+kn_data$status[kn_data$status == "c"] <- "Closed"
+kn_data$status[kn_data$status == "closed."] <- "Closed"
+kn_data$status[kn_data$status == "not open "] <- "Closed"
+kn_data$status[kn_data$status == "open"] <- "Open"
+
+status_freq_table <- kn_data %>%   
+  group_by(status) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+status_freq_table
+```
+
+18. Next, let's make a 'film_month' frequency table. Everything looks normal here, so we will move on.
+
+```{r}
+filmmonth_freq_table <- kn_data %>%   
+  group_by(film_month) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+filmmonth_freq_table
+```
+
+19. Next, let's make a 'closing_year' frequency table.
+
+```{r}
+closeyear_freq_table <- kn_data %>%   
+  group_by(closing_year) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+closeyear_freq_table
+```
+
+20. There are many different values that need to be read in by R as NA values and need to be manually changed to NAs. After, we will re-call the frequency table to confirm that our changes worked.
+
+```{r}
+#change values to NAs
+kn_data <- replace(kn_data, kn_data=='N/A', NA)
+kn_data <- replace(kn_data, kn_data=='still open', NA)
+kn_data <- replace(kn_data, kn_data=='#N/A', NA)
+kn_data <- replace(kn_data, kn_data=="didn't close", NA)
+kn_data <- replace(kn_data, kn_data=='not applicable', NA)
+kn_data <- replace(kn_data, kn_data=='', NA)
+
+closeyear_freq_table <- kn_data %>%   
+  group_by(closing_year) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+closeyear_freq_table
+```
+
+21. Next, we'll make a 'cuisine' frequency table.
+
+```{r}
+cuisine_freq_table <- kn_data %>%   
+  group_by(cuisine) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+cuisine_freq_table
+```
+
+22. There are some repetitive values that need to be manually changed. Then, we'll re-call the frequency table to make sure the changes worked.
+
+```{r}
+kn_data$cuisine[kn_data$cuisine == "Italy"] <- "Italian"
+kn_data$cuisine[kn_data$cuisine == "Pizzeria"] <- "Pizza"
+kn_data$cuisine[kn_data$cuisine == "Steak"] <- "Steakhouse"
+kn_data$cuisine[kn_data$cuisine == "american"] <- "American"
+kn_data$cuisine[kn_data$cuisine == "breakfast"] <- "Breakfast"
+
+cuisine_freq_table <- kn_data %>%   
+  group_by(cuisine) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+cuisine_freq_table
+```
+
+23. Next, let's look at the 'revisited' column and make a frequency table.
+
+```{r}
+revisited_freq_table <- kn_data %>%   
+  group_by(revisited) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+revisited_freq_table
+```
+
+24. There should only be 'Yes' or 'No' values here so we'll manually change incorrect values. Then, we'll re-call the frequency table to check that we only have two possible values.
+
+```{r}
+#manually change values
+kn_data$revisited[kn_data$revisited == " No"] <- "No"
+kn_data$revisited[kn_data$revisited == " yes "] <- "Yes"
+kn_data$revisited[kn_data$revisited == "No."] <- "No"
+kn_data$revisited[kn_data$revisited == "No..."] <- "No"
+kn_data$revisited[kn_data$revisited == "No?"] <- "No"
+kn_data$revisited[kn_data$revisited == "Nooooo"] <- "No"
+kn_data$revisited[kn_data$revisited == "Yessss"] <- "Yes"
+
+revisited_freq_table <- kn_data %>%   
+  group_by(revisited) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+revisited_freq_table
+```
+
+25. Next, we'll make a frequency table for the 'two_parts' column.
+
+```{r}
+twopart_freq_table <- kn_data %>%   
+  group_by(two_parts) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+twopart_freq_table
+```
+
+26. We need to manually change some values, and then re-call the frequency table to make sure there are only two possible values: 'Yes' and 'No'.
+
+```{r}
+kn_data$two_parts[kn_data$two_parts == " No"] <- "No"
+kn_data$two_parts[kn_data$two_parts == " No."] <- "No"
+kn_data$two_parts[kn_data$two_parts == "N"] <- "No"
+kn_data$two_parts[kn_data$two_parts == "Y"] <- "Yes"
+kn_data$two_parts[kn_data$two_parts == "Yes "] <- "Yes"
+
+twopart_freq_table <- kn_data %>%   
+  group_by(two_parts) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+twopart_freq_table
+```
+
+27. Saving the cleaned Kitchen Nightmares data set to 'DataCleanAndFormatted' folder.
+
+```{r}
+folder <- "DataCleanAndFormatted"
+
+# Check if the folder exists
+if (!dir.exists(folder)) {
+  # Create the folder
+  dir.create(folder)
+  write.csv(kn_data,file.path(folder,"Clean_KitchenNightmares_Data.csv"),
+            row.names=F)
+
+} else {
+  write.csv(kn_data,file.path(folder,"Clean_KitchenNightmares_Data.csv"),
+            row.names=F)}
+```
+
+### Data Formatting
+
+1.  Read in [Clean_KitchenNightmares_Data](https://github.com/DataPreProcessing-FALL2024/Deli3Test/raw/refs/heads/main/DataCleanAndFormatted/Clean_KitchenNightmares_Data.csv) from Github link.
+
+```{r}
+clean_kn_link = "https://github.com/DataPreProcessing-FALL2024/Deli3Test/raw/refs/heads/main/DataCleanAndFormatted/Clean_KitchenNightmares_Data.csv"
+
+clean_kn = read.csv(clean_kn_link)
+
+str(clean_kn)
+```
+
+2.  Check head() of the clean dataset.
+
+```{r}
+head(clean_kn)
+```
+
+3.  TEXT DATA
+
+-   We have many columns of text data (restaurant, city, state, status, cuisine, revisited, two_parts) here that we want to make sure are in either all upper case or all lower case. I will make all the text data for this data set lowercase.
+
+```{r}
+clean_kn$restaurant<-tolower(clean_kn$restaurant)
+clean_kn$city<-tolower(clean_kn$city)
+clean_kn$state<-tolower(clean_kn$state)
+clean_kn$status<- tolower(clean_kn$status)
+clean_kn$cuisine<-tolower(clean_kn$cuisine)
+clean_kn$revisited<-tolower(clean_kn$revisited)
+clean_kn$two_parts<-tolower(clean_kn$two_parts)
+
+str(clean_kn)
+```
+
+4.  NUMERIC DATA
+
+-   First, we will create a new column for film_year and remove film_month since the month does not tell us much in terms of analysis.
+
+```{r}
+#split 'film_month' column into 'month' and 'year' columns
+clean_kn[c('month', 'year')] <- 
+  str_split_fixed(clean_kn$film_month, ' ', 2)
+
+#remove 'month' and 'film_month' columns
+clean_kn <- select(clean_kn, -month)
+clean_kn <- select(clean_kn, -film_month)
+
+#relocate back to original position
+clean_kn <- clean_kn %>% 
+  relocate(year, .before=closing_year)
+
+#rename 'year' column
+clean_kn <- clean_kn %>% 
+  rename_at('year', ~'film_year')
+```
+
+-   We have four columns of data that should be read in as numeric data (season, episode, film_year, closing_year). First, we will check to see what it is initially being read in as and if it needs changed, we will force it into being read as a numeric value. While film_year and closing_year are technically dates, it does not seem like it's possible to convert it to datetime format since there is no month or day present in the data so we will just convert them both to numeric.
+
+```{r}
+typeof(clean_kn$season)
+clean_kn$season <- as.numeric(clean_kn$season)
+typeof(clean_kn$season)
+```
+
+```{r}
+typeof(clean_kn$episode)
+clean_kn$episode <- as.numeric(clean_kn$episode)
+typeof(clean_kn$episode)
+```
+
+```{r}
+typeof(clean_kn$film_year)
+clean_kn$film_year <- as.numeric(clean_kn$film_year)
+typeof(clean_kn$film_year)
+```
+
+```{r}
+typeof(clean_kn$closing_year)
+clean_kn$closing_year <- as.numeric(clean_kn$closing_year)
+typeof(clean_kn$closing_year)
+```
+
+5.  Check to make sure changes to numeric format worked correctly using str() function.
+
+```{r}
+str(clean_kn)
+```
+
+6.  DATE DATA
+
+-   There is one column that needs to be recognized as a date format (air_date).
+
+```{r}
+head(clean_kn$air_date)
+```
+
+```{r}
+strptime(clean_kn$air_date, "%Y-%m-%d")
+
+clean_kn$air_date= strptime(clean_kn$air_date, "%Y-%m-%d")
+```
+
+```{r}
+str(clean_kn)
+```
+
+7.  Finally, we'll save the newly formatted Kitchen Nightmares data to the DataCleanAndFormatted folder as an RDS file.
+
+```{r}
+folder = "DataCleanAndFormatted"
+
+# Check if the folder exists
+if (!dir.exists(folder)) {
+  # Create the folder
+  dir.create(folder)
+  saveRDS(clean_kn,file.path(folder,"Formatted_KitchenNightmares_Data.RDS"))
+
+} else {
+  saveRDS(clean_kn,file.path(folder,"Formatted_KitchenNightmares_Data.RDS"))
+
+}
+```
+
+## Hotel Hell Data
+
+### Data Cleaning
+
+1.  Read in [Hotel Hell data link](https://github.com/DataPreProcessing-FALL2024/Deli3Test/raw/refs/heads/main/Data/messy_hotel_hell.csv) from Github repository.
+
+```{r}
+library(dplyr)
+library(tidyverse)
+hh_link = "https://github.com/DataPreProcessing-FALL2024/Deli3Test/raw/refs/heads/main/Data/messy_hotel_hell.csv"
+```
+
+2.  Read in CSV file from link.
+
+```{r}
+hh_data = read.csv(hh_link) 
+head(hh_data)
+```
+
+3.  Clean column names and drop the first column because it is unnecessary.
+
+```{r}
+colnames(hh_data)  
+
+hh_data <- hh_data[, -1]  
+
+colnames(hh_data) <- c('season', 'episode', 'hotel', 'city', 'state', 'air_date', 'status', 'film_month', 'closing_year', 'two_parts')  
+
+head(hh_data)
+```
+
+4.  Next, we'll make a frequency table for the 'season' column to see what we're working with.
+
+```{r}
+season_freq_table <- hh_data %>%   
+  group_by(season) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+season_freq_table
+```
+
+5.  Some of the values were input incorrectly so we will manually change them. Then, we'll re-call the frequency table to make sure there are only 3 possible values for the 'season' column.
+
+```{r}
+hh_data$season[hh_data$season == "1.01"] <- "1"
+hh_data$season[hh_data$season == "2,"] <- "2"
+hh_data$season[hh_data$season == "3."] <- "3"
+
+season_freq_table <- hh_data %>%   
+  group_by(season) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+season_freq_table
+```
+
+6.  Next, we'll make an 'episode' frequency table.
+
+```{r}
+ep_freq_table <- hh_data %>%   
+  group_by(episode) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+ep_freq_table
+```
+
+7.  Some of the values are incorrect, so we need to manually change them. Then, re-call frequency table to make sure changes stuck.
+
+```{r}
+hh_data$episode[hh_data$episode == " 6"] <- "6"
+hh_data$episode[hh_data$episode == "1.0"] <- "1"
+hh_data$episode[hh_data$episode == "8."] <- "8"
+hh_data$episode[hh_data$episode == "five"] <- "5"
+
+ep_freq_table <- hh_data %>%   
+  group_by(episode) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+ep_freq_table
+```
+
+8.  Next, let's make a frequency table for the 'hotel' column.
+
+```{r}
+hotel_freq_table <- hh_data %>%   
+  group_by(hotel) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+hotel_freq_table
+```
+
+9.  There are a few cells with leading spaces, so we will want to remove those leading spaces. We also need to manually change some values. Then, we'll re-call the frequency table so that we can check our work.
+
+```{r}
+#remove leading spaces
+hh_data$hotel <- str_trim(hh_data$hotel, "left")
+
+#manually change values
+hh_data$hotel[hh_data$hotel == "Curtis House?"] <- "Curtis House"
+hh_data$hotel[hh_data$hotel == "Juniper Hill Inn!!!!"] <- "Juniper Hill Inn"
+hh_data$hotel[hh_data$hotel == "Town's Inn, Part 1"] <- "Town's Inn"
+hh_data$hotel[hh_data$hotel == "Vienna/Inn"] <- "Vienna Inn"
+hh_data$hotel[hh_data$hotel == "cambridge hotel"] <- "Cambridge Hotel"
+
+hotel_freq_table <- hh_data %>%   
+  group_by(hotel) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+hotel_freq_table
+```
+
+10. Next, let's make a frequency table for the 'city' column.
+
+```{r}
+city_freq_table <- hh_data %>%   
+  group_by(city) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+city_freq_table
+```
+
+11. There are a few values that need to be manually changed. Then, we will re-call the frequency table to check our work.
+
+```{r}
+hh_data$city[hh_data$city == " Cour d'Alene"] <- "Coeur d'Alene"
+hh_data$city[hh_data$city == "Harpers Ferry..."] <- "Harpers Ferry"
+hh_data$city[hh_data$city == "Newtown,"] <- "Newtown"
+hh_data$city[hh_data$city == "WOODBURY"] <- "Woodbury"
+hh_data$city[hh_data$city == "applegate"] <- "Applegate"
+
+city_freq_table <- hh_data %>%   
+  group_by(city) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+city_freq_table
+```
+
+12. Next, let's make a frequency table for the 'state' column.
+
+```{r}
+state_freq_table <- hh_data %>%   
+  group_by(state) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+state_freq_table
+```
+
+13. There are some leading spaces we'll want to get rid of. Then, we need to manually change some values and re-call the frequency table to make sure everything worked as intended.
+
+```{r}
+#remove leading spaces
+hh_data$state <- str_trim(hh_data$state, "left")
+
+#manually change values
+hh_data$state[hh_data$state == "OH!"] <- "OH"
+hh_data$state[hh_data$state == "idaho"] <- "ID"
+hh_data$state[hh_data$state == "or"] <- "OR"
+hh_data$state[hh_data$state == "washington"] <- "WA"
+
+state_freq_table <- hh_data %>%   
+  group_by(state) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+state_freq_table
+```
+
+14. Next, we'll make a frequency table for the 'air_date' column.
+
+```{r}
+airdate_freq_table <- hh_data %>%   
+  group_by(air_date) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+airdate_freq_table
+```
+
+15. We want to make sure everything is in the correct date format so it can later be read in by R as a datetime object. Let's manually change the incorrect values to the format of Y-M-D. Then, we'll re-call the 'air_date' frequency table to check our work.
+
+```{r}
+hh_data$air_date[hh_data$air_date == "06-07-2016"] <- "2016-06-07"
+hh_data$air_date[hh_data$air_date == "1st of september 2014"] <- "2014-09-01"
+hh_data$air_date[hh_data$air_date == "july 21 2014"] <- "2014-07-21"
+
+airdate_freq_table <- hh_data %>%   
+  group_by(air_date) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+airdate_freq_table
+```
+
+16. Next, let's make a 'status' frequency table.
+
+```{r}
+status_freq_table <- hh_data %>%   
+  group_by(status) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+status_freq_table
+```
+
+17. We should get rid of leading spaces and also change values manually to create only two possible values- 'closed' and 'open'.
+
+```{r}
+#remove leading spaces
+hh_data$status <- str_trim(hh_data$status, "left")
+
+#manually change values
+hh_data$status[hh_data$status == "closed"] <- "Closed"
+hh_data$status[hh_data$status == "closed down"] <- "Closed"
+hh_data$status[hh_data$status == "not open"] <- "Closed"
+hh_data$status[hh_data$status == "sold"] <- "Closed"
+
+status_freq_table <- hh_data %>%   
+  group_by(status) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+status_freq_table
+```
+
+18. Next, let's make a 'film_month' frequency table.
+
+```{r}
+filmmonth_freq_table <- hh_data %>%   
+  group_by(film_month) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+filmmonth_freq_table
+```
+
+19. We should get rid of leading spaces and also change values manually. Then, we'll re-call the frequency table to make sure the changes worked as intended.
+
+```{r}
+#remove leading spaces
+hh_data$film_month <- str_trim(hh_data$film_month, "left")
+
+#manually change values
+hh_data$film_month[hh_data$film_month == "Feb    2012"] <- "Feb 2012"
+hh_data$film_month[hh_data$film_month == "June 2013."] <- "June 2013"
+hh_data$film_month[hh_data$film_month == "June, 2013"] <- "June 2013"
+hh_data$film_month[hh_data$film_month == "Nov, 2015"] <- "Nov 2015"
+hh_data$film_month[hh_data$film_month == "Oct ,2015"] <- "Oct 2015"
+
+filmmonth_freq_table <- hh_data %>%   
+  group_by(film_month) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+filmmonth_freq_table
+```
+
+20. Next, let's make a frequency table for 'closing_year'.
+
+```{r}
+closeyear_freq_table <- hh_data %>%   
+  group_by(closing_year) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+closeyear_freq_table
+```
+
+21. There are many different values that need to be read in by R as NA values and need to be manually changed to NAs. After, we will re-call the frequency table to confirm that our changes worked.
+
+```{r}
+#change values to NAs
+hh_data <- replace(hh_data, hh_data=='N/A', NA)
+hh_data <- replace(hh_data, hh_data=='#N/A', NA)
+hh_data <- replace(hh_data, hh_data==' na', NA)
+hh_data <- replace(hh_data, hh_data=='not applicable', NA)
+
+closeyear_freq_table <- hh_data %>%   
+  group_by(closing_year) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+closeyear_freq_table
+```
+
+22. Next, we'll make a 'two_parts' frequency table.
+
+```{r}
+twopart_freq_table <- hh_data %>%   
+  group_by(two_parts) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+twopart_freq_table
+```
+
+23. We need to manually change some values, and then re-call the frequency table to make sure there are only two possible values: 'Yes' and 'No'.
+
+```{r}
+#manually change values
+hh_data$two_parts[hh_data$two_parts == " No"] <- "No"
+hh_data$two_parts[hh_data$two_parts == " No..."] <- "No"
+hh_data$two_parts[hh_data$two_parts == "NO"] <- "No"
+hh_data$two_parts[hh_data$two_parts == "No!"] <- "No"
+hh_data$two_parts[hh_data$two_parts == "No..."] <- "No"
+hh_data$two_parts[hh_data$two_parts == "YES."] <- "Yes"
+hh_data$two_parts[hh_data$two_parts == "Yes."] <- "Yes"
+
+twopart_freq_table <- hh_data %>%   
+  group_by(two_parts) %>%   
+  summarise(frequency = n()) %>%   arrange(desc(frequency))  
+
+twopart_freq_table
+```
+
+24. Saving the cleaned Hotel Hell data set to 'DataCleanAndFormatted' folder.
+
+```{r}
+folder <- "DataCleanAndFormatted"
+
+# Check if the folder exists
+if (!dir.exists(folder)) {
+  # Create the folder
+  dir.create(folder)
+  write.csv(hh_data,file.path(folder,"Clean_HotelHell_Data.csv"),
+            row.names=F)
+
+} else {
+  write.csv(hh_data,file.path(folder,"Clean_HotelHell_Data.csv"),
+            row.names=F)}
+```
+
+### Data Formatting
+
+1.  Read in [Clean_HotelHell_Data](https://github.com/DataPreProcessing-FALL2024/Deli3Test/raw/refs/heads/main/DataCleanAndFormatted/Clean_HotelHell_Data.csv) from Github link.
+
+```{r}
+clean_hh_link = "https://github.com/DataPreProcessing-FALL2024/Deli3Test/raw/refs/heads/main/DataCleanAndFormatted/Clean_HotelHell_Data.csv"
+
+clean_hh = read.csv(clean_hh_link)
+
+str(clean_hh)
+```
+
+2.  Check head() of the clean dataset.
+
+```{r}
+head(clean_hh)
+```
+
+3.  TEXT DATA
+
+-   We have many columns of text data (hotel, city, state, status, two_parts) here that we want to make sure are in either all upper case or all lower case. I will make all the text data for this data set lowercase.
+
+```{r}
+clean_hh$hotel<-tolower(clean_hh$hotel)
+clean_hh$city<-tolower(clean_hh$city)
+clean_hh$state<-tolower(clean_hh$state)
+clean_hh$status<-tolower(clean_hh$status)
+clean_hh$two_parts<-tolower(clean_hh$two_parts)
+
+str(clean_hh)
+```
+
+4.  NUMERIC DATA
+
+-   First, we will create a new column for film_year and remove film_month since the month does not tell us much in terms of analysis.
+
+```{r}
+#split 'film_month' column into 'month' and 'year' columns
+clean_hh[c('month', 'year')] <- 
+  str_split_fixed(clean_hh$film_month, ' ', 2)
+
+#remove 'month' and 'film_month' columns
+clean_hh <- select(clean_hh, -month)
+clean_hh <- select(clean_hh, -film_month)
+
+#relocate back to original position
+clean_hh <- clean_hh %>% 
+  relocate(year, .before=closing_year)
+
+#rename 'year' column
+clean_hh <- clean_hh %>% 
+  rename_at('year', ~'film_year')
+```
+
+-   We have four columns of data that should be read in as numeric data (season, episode, film_year, closing_year). First, we will check to see what it is initially being read in as and if it needs changed, we will force it into being read as a numeric value. While film_year and closing_year are technically dates, it does not seem like it's possible to convert it to datetime format since there is no month or day present in the data so we will just convert them both to numeric.
+
+```{r}
+typeof(clean_hh$season)
+clean_hh$season <- as.numeric(clean_hh$season)
+typeof(clean_hh$season)
+```
+
+```{r}
+typeof(clean_hh$episode)
+clean_hh$episode <- as.numeric(clean_hh$episode)
+typeof(clean_hh$episode)
+```
+
+```{r}
+typeof(clean_hh$film_year)
+clean_hh$film_year <- as.numeric(clean_hh$film_year)
+typeof(clean_hh$film_year)
+```
+
+```{r}
+typeof(clean_hh$closing_year)
+clean_hh$closing_year <- as.numeric(clean_hh$closing_year)
+typeof(clean_hh$closing_year)
+```
+
+5.  Check to make sure changes to numeric format worked correctly using str() function.
+
+```{r}
+str(clean_hh)
+```
+
+6.  DATE DATA
+
+-   There is one column that needs to be recognized as a date format (air_date).
+
+```{r}
+head(clean_hh$air_date)
+```
+
+```{r}
+strptime(clean_hh$air_date, "%Y-%m-%d")
+
+clean_hh$air_date= strptime(clean_hh$air_date, "%Y-%m-%d")
+```
+
+```{r}
+str(clean_hh)
+```
+
+7.  Finally, we'll save the newly formatted Hotel Hell data to the DataCleanAndFormatted folder as an RDS file.
+
+```{r}
+folder = "DataCleanAndFormatted"
+
+# Check if the folder exists
+if (!dir.exists(folder)) {
+  # Create the folder
+  dir.create(folder)
+  saveRDS(clean_hh,file.path(folder,"Formatted_HotelHell_Data.RDS"))
+
+} else {
+  saveRDS(clean_hh,file.path(folder,"Formatted_HotelHell_Data.RDS"))
+
+}
+```
